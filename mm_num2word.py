@@ -36,7 +36,9 @@ def convert_digit(num):
     return mm_digit[num[-4]] + ('ထောင် ' if (num[-3:] == '၀၀၀') else 'ထောင့် ')
 
   def hundredth_val():
-    return mm_digit[num[-3]] + ('ရာ့ ' if ((not re.match(r"[၁-၉]", num[-2:]))) else 'ရာ ')
+    return mm_digit[num[-3]] + ('ရာ့ ' if (
+      (num[-2] == '၀' and re.match(r'[၁-၉]', num[-1])) or (re.match(r'[၁-၉]', num[-2]) and num[-1] == '၀')
+    ) else 'ရာ ')
 
   def tenth_val():
     return ('' if (num[-2] == '၁') else mm_digit[num[-2]]) + ('ဆယ် ' if (num[-1] == '၀') else 'ဆယ့် ')
@@ -68,3 +70,9 @@ def mm_num2word(num):
   word = convert_digit(num)
 
   return word
+
+print(mm_num2word('၁၀၇'))
+print(mm_num2word('၁၂၀'))
+print(mm_num2word('၃၂၁'))
+print(mm_num2word('၃၂၅၉၇၀၀၀၃၀'))
+print(mm_num2word('၅၀၀၅၁၂၃၀'))
