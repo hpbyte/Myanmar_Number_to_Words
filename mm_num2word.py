@@ -1,5 +1,18 @@
 import re
 
+mm_digit = {
+  '၀': 'သုည',
+  '၁': 'တစ်',
+  '၂': 'နှစ်',
+  '၃': 'သုံ:',
+  '၄': 'လေ:',
+  '၅': 'ငါ:',
+  '၆': 'ခြောက်',
+  '၇': 'ခုနှစ်',
+  '၈': 'ရှစ်',
+  '၉': 'ကို:'
+}
+
 def convert_digit(num):
   """
   For Digit Numbers
@@ -9,18 +22,6 @@ def convert_digit(num):
   @rtype          str
   @return         converted Myanmar spoken words
   """
-
-  mm_digit = {
-    '၁': 'တစ်',
-    '၂': 'နှစ်',
-    '၃': 'သုံ:',
-    '၄': 'လေ:',
-    '၅': 'ငါ:',
-    '၆': 'ခြောက်',
-    '၇': 'ခုနှစ်',
-    '၈': 'ရှစ်',
-    '၉': 'ကို:'
-  }
 
   converted = ''
   nb_digits = len(num)
@@ -65,8 +66,29 @@ def mm_num2word(num):
   @rtype          str
   @return         converted Myanmar spoken words
   """
+  
+  word = ''
 
-  # digits
-  word = convert_digit(num)
+  # phone number
+  if (re.match(r'၀၁|၀၉', num[:2])):
+    word = ' '.join([(mm_digit[d] if not d == '၇' else 'ခွန်') for d in num])
+  # date
+  elif (re.match(r'[၀-၉]{1,2}(-|/)[၀-၉]{1,2}(-|/)[၀-၉]{4}', num)):
+    n = re.split(r'-|/', num)
+    word = convert_digit(n[-1]) + ' ခုနှစ် ' + convert_digit(n[1]) + ' လပိုင်: ' + convert_digit(n[0]) + ' ရက်'
+  # time
+  elif (re.match(r'[၀-၉]{1,2}:[၀-၉]{1,2}', num)):
+    n = re.split(r':', num)
+    word = convert_digit(n[0]) + ' နာရီ ' + convert_digit(n[1]) + ' မိနစ်'
+  # amount
+  elif (re.match(r'^[,၀-၉]+$', num)):
+    word = convert_digit(num.replace(',', ''))
+  # cardinal
+  elif (re.match(r'^[၀-၉]+.[၀-၉]*$', num)):
+    n = re.split(r'\.', num)
+    word = convert_digit(n[0]) + ' ဒဿမ ' + ' '.join([mm_digit[d] for d in n[1]])
+  # default
+  else:
+    word = 'Can\'t convert!'
 
   return word
