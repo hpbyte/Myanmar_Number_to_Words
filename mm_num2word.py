@@ -70,9 +70,3 @@ def mm_num2word(num):
   word = convert_digit(num)
 
   return word
-
-print(mm_num2word('၁၀၇'))
-print(mm_num2word('၁၂၀'))
-print(mm_num2word('၃၂၁'))
-print(mm_num2word('၃၂၅၉၇၀၀၀၃၀'))
-print(mm_num2word('၅၀၀၅၁၂၃၀'))
