@@ -1,4 +1,4 @@
-# mm_num2word
+# Myanmar Number to Word
 
 - Basically, this is a simple python script for converting Myanmar numbers into Myanmar spoken words
 - It is expected to be able to detect and convert the following types:
@@ -10,6 +10,8 @@
   - Fraction
   - NRC
   - Amount
+
+#### This is a part of the preprocessing stage of the Myanmar Text-to-Speech Project where the numbers in text dataset needs to be converted into spoken words.
 
 ```
 # Amount
@@ -27,6 +29,7 @@
 
 # Time (H:mm)
 ၃:၂၅        =>  သုံ: နာရီ နှစ်ဆယ့် ငါ: မိနစ်
+၄:၃၀        =>  လေ: နာရီ ခွဲ
 
 # Decimal
 ၃၂.၄၂၈      =>  သုံ:ဆယ့် နှစ် ဒဿမ လေ: နှစ် ရှစ်

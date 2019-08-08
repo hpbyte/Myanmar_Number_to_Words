@@ -79,7 +79,7 @@ def mm_num2word(num):
   # time
   elif (re.match(r'[၀-၉]{1,2}:[၀-၉]{1,2}', num)):
     n = re.split(r':', num)
-    word = convert_digit(n[0]) + ' နာရီ ' + convert_digit(n[1]) + ' မိနစ်'
+    word = (convert_digit(n[0]) + ' နာရီ ') + ('ခွဲ' if (n[1] == '၃၀') else (convert_digit(n[1]) + ' မိနစ်'))
   # amount
   elif (re.match(r'^[,၀-၉]+$', num)):
     word = convert_digit(num.replace(',', ''))
@@ -92,3 +92,14 @@ def mm_num2word(num):
     word = 'Can\'t convert!'
 
   return word
+
+def extract_num(S):
+  """
+  Return a list of numbers extracted from a string
+
+  @type     S   str
+  @param    S   Myanmar number
+  @rtype        list
+  @return       a list of Myanmar numbers
+  """
+  pass
