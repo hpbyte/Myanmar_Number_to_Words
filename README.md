@@ -1,9 +1,9 @@
 # Myanmar Number to Words
 
-- Basically, this is a simple python script for converting Myanmar numbers into Myanmar spoken words
-- It is expected to be able to detect and convert the following types:
-  - Dates
-  - Time
+Basically, this is a simple python script for converting Myanmar numbers into Myanmar spoken words
+It is expected to be able to detect and convert the following types:
+  - Dates (DD-MM-YYYY or DD/MM/YYYY)
+  - Time (H:mm)
   - Digit Number
   - Decimal Number
   - Range
@@ -11,7 +11,7 @@
   - NRC
   - Amount
 
-#### This is an essential part of the preprocessing stage of the Myanmar Text-to-Speech Project where the numbers in the text dataset needs to be converted into spoken words.
+This is an essential part in the preprocessing stage of the Myanmar Text-to-Speech Project in which the numbers in the text dataset needs to be converted into spoken words.
 
 ## Examples
 
@@ -39,4 +39,26 @@
 
 # Decimal
 ၃၂.၄၂၈      =>  သုံ:ဆယ့် နှစ် ဒဿမ လေ: နှစ် ရှစ်
+```
+
+## Usage
+
+Clone or download this repository
+```
+git clone https://github.com/hpbyte/Myanmar_Number_to_Words.git
+```
+
+You will see two files under the cloned directory
+```
+Myanmar_Number_to_Words
+  | mm_num2word.py
+  | convert.py
+```
+
+`mm_num2word.py` contains all the logics needed (from extracting numbers from a string to detecting and converting).
+
+`convert.py` is the tool that is able to take an input file, transform the numbers from the file into words accordingly and then output the result file.
+
+```
+python3 convert.py --input path/to/your/input.txt --output path/for/output.txt 
 ```

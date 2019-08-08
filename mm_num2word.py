@@ -13,12 +13,18 @@ mm_digit = {
   '၉': 'ကို:'
 }
 
+# regular expressions
+rgxPh = '^(၀၁|၀၉)'
+rgxDate = '[၀-၉]{1,2}-[၀-၉]{1,2}-[၀-၉]{4}|[၀-၉]{1,2}\/[၀-၉]{1,2}\/[၀-၉]{4}'
+rgxTime = '[၀-၉]{1,2}:[၀-၉]{1,2}'
+rgxDec = '[၀-၉]*\.[၀-၉]*'
+rgxAmt = '[,၀-၉]+'
+
+
 def convert_digit(num):
   """
-  For Digit Numbers
-
   @type     num   str
-  @param    num   Myanmar digit number
+  @param    num   Myanmar number
   @rtype          str
   @return         converted Myanmar spoken words
   """
@@ -59,8 +65,11 @@ def convert_digit(num):
 
   return converted
 
+
 def mm_num2word(num):
   """
+  Detect type of number and convert accordingly
+
   @type     num   str
   @param    num   Myanmar number
   @rtype          str
@@ -70,36 +79,39 @@ def mm_num2word(num):
   word = ''
 
   # phone number
-  if (re.match(r'၀၁|၀၉', num[:2])):
+  if (re.match(r'' + rgxPh, num[:2])):
     word = ' '.join([(mm_digit[d] if not d == '၇' else 'ခွန်') for d in num])
   # date
-  elif (re.match(r'[၀-၉]{1,2}(-|/)[၀-၉]{1,2}(-|/)[၀-၉]{4}', num)):
+  elif (re.match(r'' + rgxDate, num)):
     n = re.split(r'-|/', num)
     word = convert_digit(n[-1]) + ' ခုနှစ် ' + convert_digit(n[1]) + ' လပိုင်: ' + convert_digit(n[0]) + ' ရက်'
   # time
-  elif (re.match(r'[၀-၉]{1,2}:[၀-၉]{1,2}', num)):
+  elif (re.match(r'' + rgxTime, num)):
     n = re.split(r':', num)
     word = (convert_digit(n[0]) + ' နာရီ ') + ('ခွဲ' if (n[1] == '၃၀') else (convert_digit(n[1]) + ' မိနစ်'))
-  # amount
-  elif (re.match(r'^[,၀-၉]+$', num)):
-    word = convert_digit(num.replace(',', ''))
-  # cardinal
-  elif (re.match(r'^[၀-၉]+.[၀-၉]*$', num)):
+  # decimal
+  elif (re.match(r'' + rgxDec, num)):
     n = re.split(r'\.', num)
     word = convert_digit(n[0]) + ' ဒဿမ ' + ' '.join([mm_digit[d] for d in n[1]])
+  # amount
+  elif (re.match(r'' + rgxAmt, num)):
+    word = convert_digit(num.replace(',', ''))
   # default
   else:
-    word = 'Can\'t convert!'
+    raise Exception('Cannot convert the provided number format!')
 
   return word
 
+
 def extract_num(S):
   """
-  Return a list of numbers extracted from a string
+  Extract numbers from the input string
 
   @type     S   str
-  @param    S   Myanmar number
+  @param    S   Myanmar sentence
   @rtype        list
   @return       a list of Myanmar numbers
   """
-  pass
+  matchedNums = re.compile('%s|%s|%s|%s' % (rgxDate, rgxTime, rgxDec, rgxAmt)).findall(S)
+
+  return matchedNums
