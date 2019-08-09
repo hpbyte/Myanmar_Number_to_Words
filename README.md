@@ -1,15 +1,15 @@
 # Myanmar Number to Words
 
-Basically, this is a simple python script for converting Myanmar numbers into Myanmar spoken words
+Basically, this is a simple python script for converting Myanmar numbers into Myanmar spoken words.
+
 It is expected to be able to detect and convert the following types:
-  - Dates (DD-MM-YYYY or DD/MM/YYYY)
-  - Time (H:mm)
-  - Digit Number
-  - Decimal Number
-  - Range
-  - Fraction
-  - NRC
-  - Amount
+  - [x] Dates (DD-MM-YYYY or DD/MM/YYYY)
+  - [x] Time (H:mm)
+  - [x] Digit Number
+  - [x] Decimal Number
+  - [ ] Range
+  - [ ] Fraction
+  - [x] Amount
 
 This is an essential part in the preprocessing stage of the Myanmar Text-to-Speech Project in which the numbers in the text dataset needs to be converted into spoken words.
 
@@ -28,11 +28,11 @@ This is an essential part in the preprocessing stage of the Myanmar Text-to-Spee
 ၀၁၅၂၈၈၂၃    =>  သုည တစ် ငါ: နှစ် ရှစ် ရှစ် နှစ် သုံ:
 
 
-# Date (DD-MM-YYYY or DD/MM/YYYY)
+# Date
 ၁၅-၁၂-၂၀၁၉  =>  နှစ်ထောင့် ဆယ့် ကို: ခုနှစ် ဆယ့် နှစ် လပိုင်: ဆယ့် ငါ: ရက်
 
 
-# Time (H:mm)
+# Time
 ၃:၂၅        =>  သုံ: နာရီ နှစ်ဆယ့် ငါ: မိနစ်
 ၄:၃၀        =>  လေ: နာရီ ခွဲ
 
